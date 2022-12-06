@@ -1,0 +1,14 @@
+{
+    "python.formatting.blackArgs": [
+        "--line-length=79",
+        "--target-version=py311"
+    ],
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.linting.pylintEnabled": true,
+    "editor.formatOnSave": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django",
+        "--disable=django-not-configured"
+    ]
+}
