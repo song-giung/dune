@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 django = "*"
+redis = "*"
 
 [dev-packages]
 black = "*"
