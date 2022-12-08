@@ -1,7 +1,7 @@
-version: '3.9'
+version: '3.7'
 services:
   web:
-    build: .
+    build: Dockerfile
     image: "dune"
     ports:
       - "8000:8000"
@@ -9,7 +9,8 @@ services:
       - .:/app
     command: python manage.py runserver 0.0.0.0:8000
     environment:
-      DEBUG: True
+      DEBUG: 1
+      PYTHONUNBUFFERED: 1
   redis_cache:
     image: "redis:alpine"
     ports:
