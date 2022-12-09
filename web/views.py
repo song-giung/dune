@@ -8,6 +8,9 @@ CACHE_KEY_HELLO = "hello"
 CACHE_TIMEOUT_SECOND = 30
 
 
+def health_check(request):
+    return HttpResponse()
+
 class HelloView(View):
     def get(self, request, *args, **kwargs):
         """호출된 시점부터 30초동안 유효한 캐쉬를 설정한다."""
