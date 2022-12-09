@@ -1,0 +1,16 @@
+x-aws-cluster: "dune"
+
+version: '3.7'
+services:
+  web:
+    image: "ECR URI"
+    ports:
+      - 8000:8000
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DEBUG: 1
+      PYTHONUNBUFFERED: 1
+  redis_cache:
+    image: "redis:alpine"
+    ports:
+      - 6379:6379
