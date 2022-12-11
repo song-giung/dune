@@ -5,7 +5,7 @@ services:
   web:
     image: "ECR URI"
     ports:
-      - 8000:8000
+      - 80:8000
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       DEBUG: 1
