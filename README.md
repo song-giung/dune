@@ -69,7 +69,9 @@
 - ECR 사용법
   - 생성된 이미지를 저장하고 aws cli등을 통해 저장된 이미지 사용 가능
 - 커뮤니케이션
+
   - 서비스간 커뮤니케이션(AWS LB 설정 필요)
+
     ```python
     # 예를들어 django settings.py에서 redis 캐쉬 설정시
     # Cache setting
@@ -81,7 +83,9 @@
     }
 
     ```
+
   - 동일한 task에 속한 컨테이너간 커뮤니케이션(AWS LB 설정 불필요 localhost로 접근 가능)
+
     ```python
     # 예를들어 django settings.py에서 redis 캐쉬 설정시
     # Cache setting
@@ -98,15 +102,34 @@
 
 - console
 - cli
+
   - aws-cli
     - 다중 프로파일 사용법
   - ecs-cli
   - docker
+
+    - 이미지를 빌드하여 ECR에 업로드 후
+      1. docker build -t dune . --platform=amd64
+      2. docker compose build
     - docker context를 ecs로 변경하여 docker 명령어를 통해 ecs에 직접 배포할 수 있다. `docker compose up`
-      - docker 명령어를 ecs에 반영하기 위해 context 생성 `docker context create ecs myecscontext`
-      - 해당 context로 변경한 뒤 `docker context use myecscontext` ecs에 대한 제어를 docker 명령어로 실행 가능!
+    - docker 명령어를 ecs에 반영하기 위해 context 생성 `docker context create ecs myecscontext`
+    - 해당 context로 변경한 뒤 `docker context use myecscontext` ecs에 대한 제어를 docker 명령어로 실행 가능!
+    - docker compose up으로 배포 (-f 플래그로 파일 지정 가능)
+
+      ```
+      docker context create ecs giung-ecs-ctx # create context and set profile
+
+      생성된 ecs context 사용하기
+      1. docker context use giung-ecs-ctx
+      2. 명령어에 flag 추가하기 --context giung-ecs-ctx
+
+      docker compose --file docker-compose-ecs.yml up # docker-compose 파일의 image uri를 ECS의 uri로 변경하여야 한다.
+      ```
+
     - 장점 :
+
       - docker-compose파일을 읽어서 각 컨테이너 별로 서비스를 생성하여 자동으로 구성
+
       ```python
       x-aws-cluster: "dune"
 
@@ -125,7 +148,9 @@
           ports:
             - 6379:6379
       ```
+
       - 위와 같이 설정 후 `docker compose up` 명령어를 실행할 경우 2개의 서비스(web, redis_cache), 로드밸런서, 타겟그룹 등을 `자동` 으로 생성해 준다.
+
     - 단점 :
       - 서비스 이름이라든지 일부 설정이 불가한 영역이 존재한다.
       - ecs 배포용 docker-compose 파일을 따로 작성해야 한다.
@@ -138,6 +163,7 @@
   3. Copilot(대화형)
   4. CDK(인프라 리소스를 코드상으로 다룬다.)(가장 직관적이고 익숙한 언어로 접근이 가능해 보인다.)
 - 인프라 설계 다중화, CI/CD 등 안정적인 서비스 운영을 위해서 공부할게 많다.
+- docker compose up시 cpu 아키텍쳐 선택이 가능한 명령어가 무엇인가?
 
 ### 참고 자료
 
